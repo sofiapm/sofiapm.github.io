@@ -1,0 +1,24 @@
+---
+layout: default
+modal-id: 3
+date: 2017-04-24
+img: circus.png
+alt: image-alt
+project-date: Present
+client: PowerUpp
+category: Backend Development
+site-url: http://powerupp.co/
+app-url: ""
+description: "PowerUpp is a social network with gamification. I'm responsible for all backend development. API is built in Node.js (Koa framework) and PostgreSQL (Bookshelf ORM)."
+features: [
+    "[App] Facebook Sign In/Sign Up", 
+    "[App] Google Knowledge API integration",
+    "[App] User two factor Authentication - JWT",
+    "[App] User photo upload - AWS S3 and Cloudfront",
+    "[App] Event notification - Firebase FCM",
+    "[App] Chat - Firebase Realtime Database",
+    "[App] Email sending - Mailgun",
+    "Cron Job Schedulling",
+    "Background Jobs"
+]
+---

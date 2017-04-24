@@ -1,0 +1,25 @@
+---
+layout: default
+modal-id: 4
+date: 2017-04-24
+img: game.png
+alt: image-alt
+project-date: April 2017
+client: Rewop
+category: Backend Development
+site-url: http://rewop.co
+app-url:
+description: "Rewop helps you find nearest charging spots for your phone. You can review, report and suggest locations and report reviews. The app backend is built with .NET Web API and database is SQLServer."
+features: [
+    "[App] Facebook Sign In/Sign Up", 
+    "[App] Twitter Sign In/Sign Up",
+    "[App] Google Sign In/Sign Up",
+    "[App] Google Places API integration",
+    "[App] User two factor Authentication - JWT",
+    "[App] User and location photo upload - AWS S3 and Cloudfront",
+    "[BO] App user management",
+    "[BO] BO users and roles management",
+    "[BO] Locations management",  
+    "[Both] Email sending - AWS SES"
+]
+---
