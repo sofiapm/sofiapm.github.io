@@ -1,0 +1,29 @@
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img class="profile-image img-responsive" src="img/profile.png" alt="">
+                    <div class="intro-text">
+                        <br/>
+                        <span class="skills">{{ site.skills }}</span>
+                        <p>
+                            {% for adress in site.address %}
+                                {{ adress.line }}
+		                    {% endfor %}
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <div class="header-about col-lg-6 text-center">
+                    <hr class="star-light">
+                    <br/>
+                    <p>Living in Lisbon since 2009, when I started my Bsc. and Msc. degree on Computer Science in one of the best Engeneering Universities - Instituto Superior Técnico. </p>
+                    <p>Now I'm a backend developer at Bliss Applications. </p>
+                    <p>I'm a fast learner, always improving my skills. Like clean and testable code. </p>
+                    <br/>
+                    <hr class="star-light">                                
+                </div>                
+            </div>
+        </div>
+    </header>
