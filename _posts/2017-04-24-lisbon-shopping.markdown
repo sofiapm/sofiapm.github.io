@@ -2,7 +2,7 @@
 layout: default
 modal-id: 1
 date: 2017-04-24
-img: cake.png
+img: lisbonshopping.png
 alt: image-alt
 project-date: April 2016
 client: Lisbon Shopping

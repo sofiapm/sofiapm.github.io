@@ -2,7 +2,7 @@
 layout: default
 modal-id: 3
 date: 2017-04-24
-img: circus.png
+img: powerupp.png
 alt: image-alt
 project-date: Present
 client: PowerUpp

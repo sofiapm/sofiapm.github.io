@@ -2,7 +2,7 @@
 layout: default
 modal-id: 4
 date: 2017-04-24
-img: game.png
+img: rewop.png
 alt: image-alt
 project-date: April 2017
 client: Rewop

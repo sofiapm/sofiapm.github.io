@@ -2,7 +2,7 @@
 layout: default
 modal-id: 2
 date: 2017-04-24
-img: cabin.png
+img: map.png
 alt: image-alt
 project-date: May 2016
 client: Meu Amigo Pet
