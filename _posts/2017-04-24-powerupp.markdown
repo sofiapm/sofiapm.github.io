@@ -8,7 +8,7 @@ project-date: Present
 client: PowerUpp
 category: Backend Development
 site-url: http://powerupp.co/
-app-url: ""
+app-url: https://itunes.apple.com/us/app/powerupp-enhance-your-career/id1088871746
 description: "PowerUpp is a social network with gamification. I'm responsible for all backend development. API is built in Node.js (Koa framework) and PostgreSQL (Bookshelf ORM)."
 features: [
     "[App] Facebook Sign In/Sign Up", 
