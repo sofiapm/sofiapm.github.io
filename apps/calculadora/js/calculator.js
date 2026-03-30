@@ -50,10 +50,10 @@ function calcRetencao(grossMonthly, familySituation, dependents, irsJovemYear) {
         const proportion = exemptIncome / grossMonthly;
         ret = Math.max(0, ret - ret * proportion * jovemRate);
       }
-      return { retencao: ret, taxaEfetiva: ret / grossMonthly };
+      return { retencao: ret, taxaEfetiva: ret / grossMonthly, taxaMarginal: row.rate };
     }
   }
-  return { retencao: 0, taxaEfetiva: 0 };
+  return { retencao: 0, taxaEfetiva: 0, taxaMarginal: 0 };
 }
 
 function calcIRSJovemDiscount(irs, grossAnual, jovemYear) {
@@ -156,7 +156,7 @@ function calcDependente(input) {
     deducaoEsp, rc,
     irsMonthly, irs: retencaoAnual, irsAnualEfetivo: irs,
     jovemDiscount: deductions.jovemDiscount, depDeduction: deductions.depDeduction,
-    taxaEfetivaRetencao: retencao.taxaEfetiva,
+    taxaEfetivaRetencao: retencao.taxaEfetiva, taxaMarginal: retencao.taxaMarginal,
     netMonthlyBase, totalNetMonthly,
     mealPerDay, mealType,
     mealMonthlyClean, mealMonthlyTotal, mealAnnualClean, mealAnnualTotal,
