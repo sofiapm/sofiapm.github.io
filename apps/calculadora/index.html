@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Salarios Portugal 2026</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <style>
+    /* Layout principal */
+    .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 768px) { .grid-2col { grid-template-columns: 1fr; } }
+
+    /* Header com fundo primary e texto legivel */
+    .hero {
+      background: var(--pico-primary-background);
+      color: var(--pico-primary-inverse);
+      text-align: center;
+      padding: 2rem 1rem 1.75rem;
+    }
+    .hero h1 { margin: 0; color: var(--pico-primary-inverse); }
+    .hero p { color: var(--pico-primary-inverse); opacity: 0.8; margin: 0.25rem 0 0; }
+
+    /* Toggles: botoes dentro de role="group" com .outline para inativos */
+    [role="group"] { margin-bottom: 1rem; }
+    [role="group"] button { font-size: 0.8125rem; padding: 0.4rem 0.75rem; white-space: nowrap; }
+
+    /* Summary Cards - usar cores consistentes do Pico */
+    .summary-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+    @media (max-width: 768px) { .summary-cards { grid-template-columns: 1fr; } }
+    .card {
+      padding: 1rem;
+      border-radius: var(--pico-border-radius);
+      text-align: center;
+      background: var(--pico-card-sectioning-background-color);
+      border: 1px solid var(--pico-muted-border-color);
+    }
+    .card-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--pico-muted-color);
+      margin-bottom: 0.25rem;
+    }
+    .card-value {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: var(--pico-font-family-monospace);
+      color: var(--pico-color);
+    }
+    .card-net { border-color: var(--pico-ins-color); }
+    .card-net .card-value { color: var(--pico-ins-color); }
+
+    /* Breakdown tables */
+    .breakdown-section { margin-bottom: 1.25rem; }
+    .breakdown-section h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--pico-muted-color);
+      border-bottom: 2px solid var(--pico-muted-border-color);
+      padding-bottom: 0.375rem;
+      margin-bottom: 0.5rem;
+    }
+    .breakdown-table { margin: 0; }
+    .breakdown-table td { padding: 0.4rem 0; font-size: 0.875rem; }
+    .breakdown-table .deduction td:last-child { color: var(--pico-del-color); }
+    .breakdown-table .addition td:last-child { color: var(--pico-ins-color); }
+
+    /* Rate badges */
+    .rate-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    @media (max-width: 768px) { .rate-badges { flex-direction: column; } }
+    .badge {
+      flex: 1;
+      min-width: 80px;
+      padding: 0.6rem 0.5rem;
+      border-radius: var(--pico-border-radius);
+      background: var(--pico-card-sectioning-background-color);
+      text-align: center;
+    }
+    .badge small {
+      display: block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--pico-muted-color);
+    }
+    .badge strong {
+      font-family: var(--pico-font-family-monospace);
+      font-size: 1.1rem;
+      color: var(--pico-color);
+    }
+
+    /* Simple view */
+    .simple-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+    .simple-row span:last-child {
+      font-family: var(--pico-font-family-monospace);
+      font-weight: 600;
+    }
+    .simple-row.deduction { color: var(--pico-muted-color); }
+    .simple-row.deduction span:last-child { color: var(--pico-del-color); }
+    .simple-row.addition span:last-child { color: var(--pico-ins-color); }
+    .simple-row.gross-row { font-weight: 600; }
+    .simple-row.grand-total {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pico-ins-color);
+      padding-top: 0.5rem;
+    }
+
+    /* Empty state */
+    .results-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      color: var(--pico-muted-color);
+      text-align: center;
+    }
+
+    /* Travel entries table */
+    .travel-table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+    .travel-table { width: 100%; margin: 0; }
+    .travel-table th { font-size: 0.75rem; padding: 0.4rem 0.3rem; white-space: nowrap; }
+    .travel-table td { padding: 0.3rem 0.2rem; vertical-align: middle; }
+    .travel-table input[type="text"] {
+      margin: 0; padding: 0.25rem 0.35rem; font-size: 0.8rem; min-width: 0;
+    }
+    .travel-table .te-from,
+    .travel-table .te-to { width: 50px; text-align: center; }
+    .travel-table .te-desc { width: 100%; min-width: 120px; }
+    .travel-table .te-dep,
+    .travel-table .te-arr { width: 70px; text-align: center; }
+    .travel-table input[type="checkbox"] { margin: 0; }
+    .travel-table .row-total { font-family: var(--pico-font-family-monospace); font-size: 0.85rem; white-space: nowrap; }
+    .travel-table .btn-remove {
+      background: none; border: none; color: var(--pico-del-color);
+      cursor: pointer; padding: 0.2rem 0.4rem; font-size: 1rem; line-height: 1;
+    }
+    .travel-total-row td { font-weight: 700; border-top: 2px solid var(--pico-muted-border-color); }
+    .travel-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .travel-info { font-size: 0.8rem; color: var(--pico-muted-color); margin-top: 0.25rem; }
+
+    /* Compact form styling for deslocacoes */
+    #form-deslocacoes label { font-size: 0.85rem; margin-bottom: 0.5rem; }
+    #form-deslocacoes select,
+    #form-deslocacoes input[type="number"] { font-size: 0.85rem; padding: 0.4rem 0.5rem; }
+    #form-deslocacoes .grid { margin-bottom: 0.25rem; }
+    #form-deslocacoes button { font-size: 0.85rem; padding: 0.4rem 0.75rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Calculadora de Salarios 2026</h1>
+    <p>Portugal &mdash; IRS, Seguranca Social e Salario Liquido</p>
+  </header>
+
+  <main class="container">
+    <div class="grid-2col">
+      <!-- INPUT PANEL -->
+      <article>
+        <!-- Tipo de contrato: Pico role="group" -->
+        <div role="group" id="contract-toggle">
+          <button data-value="dependente">Salario</button>
+          <button data-value="independente" class="outline">Independente</button>
+          <button data-value="deslocacoes" class="outline">Deslocacoes</button>
+        </div>
+
+        <!-- Direcao: Pico role="group" -->
+        <div role="group" id="direction-toggle">
+          <button data-value="gross-to-net">Bruto &rarr; Liquido</button>
+          <button data-value="net-to-gross" class="outline">Liquido &rarr; Bruto</button>
+        </div>
+
+        <div id="errors"></div>
+
+        <!-- DEPENDENTE -->
+        <div id="form-dependente">
+          <label id="dep-salary-label">Salario Base Mensal (&euro;)
+            <input type="number" id="dep-salary" step="0.01" min="0" placeholder="1500.00">
+          </label>
+
+          <label>Situacao Familiar
+            <select id="dep-family">
+              <option value="single">Nao Casado</option>
+              <option value="married-2">Casado - 2 Titulares</option>
+              <option value="married-1">Casado - Unico Titular</option>
+            </select>
+          </label>
+
+          <div class="grid">
+            <label>N.&ordm; Dependentes
+              <input type="number" id="dep-dependents" min="0" max="10" value="0">
+            </label>
+            <label>Dependentes &lt; 3 anos
+              <input type="number" id="dep-under3" min="0" max="10" value="0">
+            </label>
+          </div>
+
+          <fieldset>
+            <legend>Subsidio de Alimentacao</legend>
+            <div class="grid">
+              <label>Valor / Dia (&euro;)
+                <input type="number" id="dep-meal" step="0.01" min="0" value="7.63">
+              </label>
+              <label>Pagamento
+                <select id="dep-meal-type">
+                  <option value="card">Cartao Refeicao</option>
+                  <option value="cash">Dinheiro</option>
+                </select>
+              </label>
+            </div>
+            <label>Dias Uteis / Mes
+              <input type="number" id="dep-workdays" min="15" max="23" value="22">
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Subsidio de Transporte</legend>
+            <label>Valor Mensal (&euro;)
+              <input type="number" id="dep-transport" step="0.01" min="0" value="0">
+            </label>
+          </fieldset>
+
+          <label>Pagamento de Subsidios
+            <select id="dep-subsidy-mode">
+              <option value="14">14 Meses (Ferias + Natal em separado)</option>
+              <option value="12">12 Meses (Duodecimos)</option>
+            </select>
+          </label>
+
+          <fieldset>
+            <legend>IRS Jovem</legend>
+            <label>
+              <input type="checkbox" id="dep-irs-jovem" role="switch">
+              Beneficio IRS Jovem (&lt; 35 anos)
+            </label>
+            <div id="dep-jovem-year-wrap" hidden>
+              <label>Ano de Beneficio
+                <select id="dep-jovem-year">
+                  <option value="1">1.&ordm; Ano (100% isento)</option>
+                  <option value="2">2.&ordm; - 4.&ordm; Ano (75% isento)</option>
+                  <option value="5">5.&ordm; - 7.&ordm; Ano (50% isento)</option>
+                  <option value="8">8.&ordm; - 10.&ordm; Ano (25% isento)</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- INDEPENDENTE -->
+        <div id="form-independente" hidden>
+          <label id="ind-income-label">Faturacao Mensal (&euro;)
+            <input type="number" id="ind-income" step="0.01" min="0" placeholder="2000.00">
+          </label>
+
+          <label>Situacao Familiar
+            <select id="ind-family">
+              <option value="single">Nao Casado</option>
+              <option value="married-2">Casado - 2 Titulares</option>
+              <option value="married-1">Casado - Unico Titular</option>
+            </select>
+          </label>
+
+          <div class="grid">
+            <label>N.&ordm; Dependentes
+              <input type="number" id="ind-dependents" min="0" max="10" value="0">
+            </label>
+            <label>Dependentes &lt; 3 anos
+              <input type="number" id="ind-under3" min="0" max="10" value="0">
+            </label>
+          </div>
+
+          <label>
+            <input type="checkbox" id="ind-first-year" role="switch">
+            1.&ordm; Ano de Atividade (isencao SS)
+          </label>
+
+          <fieldset>
+            <legend>IRS Jovem</legend>
+            <label>
+              <input type="checkbox" id="ind-irs-jovem" role="switch">
+              Beneficio IRS Jovem (&lt; 35 anos)
+            </label>
+            <div id="ind-jovem-year-wrap" hidden>
+              <label>Ano de Beneficio
+                <select id="ind-jovem-year">
+                  <option value="1">1.&ordm; Ano (100% isento)</option>
+                  <option value="2">2.&ordm; - 4.&ordm; Ano (75% isento)</option>
+                  <option value="5">5.&ordm; - 7.&ordm; Ano (50% isento)</option>
+                  <option value="8">8.&ordm; - 10.&ordm; Ano (25% isento)</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- DESLOCACOES -->
+        <div id="form-deslocacoes" hidden>
+          <div role="group" id="travel-mode-toggle">
+            <button data-value="auto">Automatico</button>
+            <button data-value="manual" class="outline">Manual</button>
+          </div>
+
+          <div class="grid">
+            <label>Mes
+              <select id="travel-month">
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Marco</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+              </select>
+            </label>
+            <label>Ano
+              <input type="number" id="travel-year" min="2024" max="2030" value="2026">
+            </label>
+          </div>
+
+          <div class="grid">
+            <label>Tipo de Trabalhador
+              <select id="travel-worker-type">
+                <option value="workers">Trabalhadores</option>
+                <option value="directors">Administradores</option>
+              </select>
+            </label>
+            <label>Localizacao
+              <select id="travel-location">
+                <option value="national">Nacional</option>
+                <option value="international">Internacional</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="travel-auto-section">
+            <label>Valor Total Pretendido (&euro;)
+              <input type="number" id="travel-target" step="0.01" min="0" placeholder="500.00">
+            </label>
+            <button id="btn-generate" class="outline">Gerar Entradas</button>
+          </div>
+
+          <div id="travel-manual-section" hidden>
+            <button id="btn-add-row" class="outline">+ Adicionar Linha</button>
+          </div>
+
+          <div id="travel-warning"></div>
+
+          <p class="travel-info" id="travel-rate-info"></p>
+        </div>
+
+        <button id="btn-calculate">Calcular</button>
+      </article>
+
+      <!-- RESULTS PANEL -->
+      <article>
+        <!-- Vista: Pico role="group" -->
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center">
+          <div role="group" id="view-toggle" style="flex:1">
+            <button data-value="detailed">Detalhado</button>
+            <button data-value="simple" class="outline">Resumo</button>
+          </div>
+          <div role="group" id="lang-toggle">
+            <button data-value="pt">PT</button>
+            <button data-value="en" class="outline">EN</button>
+          </div>
+        </div>
+
+        <div id="results-empty" class="results-empty">
+          <p>Preencha os dados e clique em <strong>Calcular</strong></p>
+        </div>
+
+        <!-- Detailed View -->
+        <div id="view-detailed" hidden>
+          <div class="summary-cards">
+            <div class="card">
+              <span class="card-label" id="card-gross-label">Bruto Mensal</span>
+              <span class="card-value" id="res-gross"></span>
+            </div>
+            <div class="card card-net">
+              <span class="card-label" id="card-net-label">Liquido Mensal</span>
+              <span class="card-value" id="res-net"></span>
+            </div>
+          </div>
+
+          <div class="breakdown-section">
+            <h4 id="h-monthly">Decomposicao Mensal</h4>
+            <table class="breakdown-table striped"><tbody id="tbl-monthly"></tbody></table>
+          </div>
+
+          <div class="breakdown-section">
+            <h4 id="h-annual">Resumo Anual</h4>
+            <table class="breakdown-table striped"><tbody id="tbl-annual"></tbody></table>
+          </div>
+
+          <div class="breakdown-section" id="employer-section">
+            <h4 id="h-employer">Custo Empresa</h4>
+            <table class="breakdown-table striped"><tbody id="tbl-employer"></tbody></table>
+          </div>
+
+          <div class="breakdown-section">
+            <h4 id="h-rates">Taxas Efetivas</h4>
+            <div class="rate-badges" id="rate-badges"></div>
+          </div>
+
+          <div id="warnings"></div>
+          <div id="daily-notes" style="margin-top:0.75rem"></div>
+        </div>
+
+        <!-- Simple View -->
+        <div id="view-simple" hidden>
+          <div id="simple-content"></div>
+          <div id="daily-notes-simple" style="margin-top:0.75rem"></div>
+        </div>
+
+        <!-- Travel Results -->
+        <div id="view-travel" hidden>
+          <div class="travel-table-wrap">
+            <table class="travel-table striped">
+              <thead>
+                <tr>
+                  <th>De</th>
+                  <th>A</th>
+                  <th>Descricao</th>
+                  <th>Partida</th>
+                  <th>Chegada</th>
+                  <th title="Almoco">Alm.</th>
+                  <th title="Jantar">Jan.</th>
+                  <th title="Dormida">Dor.</th>
+                  <th title="Dia Completo">100%</th>
+                  <th>Valor</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="travel-entries-body"></tbody>
+              <tfoot>
+                <tr class="travel-total-row">
+                  <td colspan="9" style="text-align:right">Total</td>
+                  <td id="travel-total-value" class="row-total"></td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="travel-actions">
+            <button id="btn-export">Exportar Excel</button>
+            <button id="btn-add-row-bottom" class="outline">+ Adicionar Linha</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="container">
+    <small>Valores indicativos baseados na legislacao de 2026. Consulte um contabilista para situacoes especificas.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="js/tax-data.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/travel-data.js"></script>
+  <script src="js/travel-calculator.js"></script>
+  <script src="js/excel-export.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
