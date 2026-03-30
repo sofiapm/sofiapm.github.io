@@ -51,3 +51,53 @@ const TAX = Object.freeze({
   // Regime simplificado (coeficiente de tributacao)
   SIMPLIFIED_COEFF: 0.75,
 });
+
+// Tabelas de retencao na fonte 2026 (Despacho SEAF 2026-01-05-XXV)
+// Formula: Retencao = max(0, R x Taxa - Parcela - ParcelaDep x nDeps)
+const WITHHOLDING = {
+  // Tabela I: Nao casado sem dependentes ou casado dois titulares
+  TABLE_I: [
+    { limit: 920,      rate: 0,      parcela: 0,       parcelaDep: 0,     formula: null },
+    { limit: 1042,     rate: 0.125,  parcela: 0,       parcelaDep: 21.43, formula: R => 0.125 * 2.6 * (1273.85 - R) },
+    { limit: 1108,     rate: 0.157,  parcela: 0,       parcelaDep: 21.43, formula: R => 0.157 * 1.35 * (1554.83 - R) },
+    { limit: 1154,     rate: 0.157,  parcela: 94.71,   parcelaDep: 21.43, formula: null },
+    { limit: 1212,     rate: 0.212,  parcela: 158.18,  parcelaDep: 21.43, formula: null },
+    { limit: 1819,     rate: 0.241,  parcela: 193.33,  parcelaDep: 21.43, formula: null },
+    { limit: 2119,     rate: 0.311,  parcela: 320.66,  parcelaDep: 21.43, formula: null },
+    { limit: 2499,     rate: 0.349,  parcela: 401.19,  parcelaDep: 21.43, formula: null },
+    { limit: 3305,     rate: 0.3836, parcela: 487.66,  parcelaDep: 21.43, formula: null },
+    { limit: 5547,     rate: 0.3969, parcela: 531.62,  parcelaDep: 21.43, formula: null },
+    { limit: 20221,    rate: 0.4495, parcela: 823.40,  parcelaDep: 21.43, formula: null },
+    { limit: Infinity, rate: 0.4717, parcela: 1272.31, parcelaDep: 21.43, formula: null },
+  ],
+  // Tabela II: Nao casado com um ou mais dependentes
+  TABLE_II: [
+    { limit: 920,      rate: 0,      parcela: 0,       parcelaDep: 0,     formula: null },
+    { limit: 1042,     rate: 0.125,  parcela: 0,       parcelaDep: 34.29, formula: R => 0.125 * 2.6 * (1273.85 - R) },
+    { limit: 1108,     rate: 0.157,  parcela: 0,       parcelaDep: 34.29, formula: R => 0.157 * 1.35 * (1554.83 - R) },
+    { limit: 1154,     rate: 0.157,  parcela: 94.71,   parcelaDep: 34.29, formula: null },
+    { limit: 1212,     rate: 0.212,  parcela: 158.18,  parcelaDep: 34.29, formula: null },
+    { limit: 1819,     rate: 0.241,  parcela: 193.33,  parcelaDep: 34.29, formula: null },
+    { limit: 2119,     rate: 0.311,  parcela: 320.66,  parcelaDep: 34.29, formula: null },
+    { limit: 2499,     rate: 0.349,  parcela: 401.19,  parcelaDep: 34.29, formula: null },
+    { limit: 3305,     rate: 0.3836, parcela: 487.66,  parcelaDep: 34.29, formula: null },
+    { limit: 5547,     rate: 0.3969, parcela: 531.62,  parcelaDep: 34.29, formula: null },
+    { limit: 20221,    rate: 0.4495, parcela: 823.40,  parcelaDep: 34.29, formula: null },
+    { limit: Infinity, rate: 0.4717, parcela: 1272.31, parcelaDep: 34.29, formula: null },
+  ],
+  // Tabela III: Casado, unico titular
+  TABLE_III: [
+    { limit: 991,      rate: 0,      parcela: 0,        parcelaDep: 0,     formula: null },
+    { limit: 1042,     rate: 0.125,  parcela: 0,        parcelaDep: 42.86, formula: R => 0.125 * 2.6 * (1372.15 - R) },
+    { limit: 1108,     rate: 0.125,  parcela: 0,        parcelaDep: 42.86, formula: R => 0.125 * 1.35 * (1677.85 - R) },
+    { limit: 1119,     rate: 0.125,  parcela: 96.17,    parcelaDep: 42.86, formula: null },
+    { limit: 1432,     rate: 0.1272, parcela: 98.64,    parcelaDep: 42.86, formula: null },
+    { limit: 1962,     rate: 0.157,  parcela: 141.32,   parcelaDep: 42.86, formula: null },
+    { limit: 2240,     rate: 0.1938, parcela: 213.53,   parcelaDep: 42.86, formula: null },
+    { limit: 2773,     rate: 0.2277, parcela: 289.47,   parcelaDep: 42.86, formula: null },
+    { limit: 3389,     rate: 0.257,  parcela: 370.72,   parcelaDep: 42.86, formula: null },
+    { limit: 5965,     rate: 0.2881, parcela: 476.12,   parcelaDep: 42.86, formula: null },
+    { limit: 20265,    rate: 0.3843, parcela: 1049.96,  parcelaDep: 42.86, formula: null },
+    { limit: Infinity, rate: 0.4717, parcela: 2821.13,  parcelaDep: 42.86, formula: null },
+  ],
+};

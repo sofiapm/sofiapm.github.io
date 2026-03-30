@@ -171,7 +171,7 @@ const L = {
     transportAnnual: 'Sub. Transporte anual',
     totalCostAnnual: 'Custo Total Anual', totalCostMonthly: 'Custo Total Mensal (media)',
     monthlyTitle: 'Decomposicao Mensal', annualTitle: 'Resumo Anual',
-    ratesTitle: 'Taxas Efetivas', irsEffective: 'IRS Efetiva',
+    ratesTitle: 'Taxas Efetivas', irsEffective: 'IRS Efetiva', retencao: 'Retencao',
     card: 'Cartao', cash: 'Dinheiro',
     mealNote: 'Alimentacao', travelNote: 'Deslocacao', perDay: '/dia', national: 'nacional',
     invoicing: 'Faturacao mensal', invoicingAnnual: 'Faturacao anual (12 meses)',
@@ -191,7 +191,7 @@ const L = {
     transportAnnual: 'Transport Allowance annual',
     totalCostAnnual: 'Total Annual Cost', totalCostMonthly: 'Total Monthly Cost (avg)',
     monthlyTitle: 'Monthly Breakdown', annualTitle: 'Annual Summary',
-    ratesTitle: 'Effective Rates', irsEffective: 'Income Tax Eff.',
+    ratesTitle: 'Effective Rates', irsEffective: 'Income Tax Eff.', retencao: 'Withholding',
     card: 'Card', cash: 'Cash',
     mealNote: 'Meal', travelNote: 'Travel', perDay: '/day', national: 'national',
     invoicing: 'Monthly invoicing', invoicingAnnual: 'Annual invoicing (12 months)',
@@ -274,7 +274,7 @@ function renderDepDetailed(r) {
   // Taxas
   $('rate-badges').innerHTML =
     badge('SS', fmtPct(r.rSS)) +
-    badge(t('irsEffective'), fmtPct(r.rIRS)) +
+    badge(t('retencao'), fmtPct(r.taxaEfetivaRetencao)) +
     badge('Total', fmtPct(r.rTotal));
 
   $('warnings').innerHTML = r.warnings.map(w =>

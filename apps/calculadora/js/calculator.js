@@ -25,6 +25,37 @@ function calcIRS(rc, familySituation) {
   return applyBrackets(rc) + applySobretaxa(rc);
 }
 
+// Retencao na fonte (tabelas mensais do Despacho SEAF)
+function selectWithholdingTable(familySituation, dependents) {
+  if (familySituation === 'married-1') return WITHHOLDING.TABLE_III;
+  if (familySituation === 'single' && dependents > 0) return WITHHOLDING.TABLE_II;
+  return WITHHOLDING.TABLE_I; // single sem deps ou casado dois titulares
+}
+
+function calcRetencao(grossMonthly, familySituation, dependents, irsJovemYear) {
+  if (grossMonthly <= 0) return { retencao: 0, taxaEfetiva: 0 };
+  const table = selectWithholdingTable(familySituation, dependents);
+  for (const row of table) {
+    if (grossMonthly <= row.limit) {
+      const parcela = row.formula ? row.formula(grossMonthly) : row.parcela;
+      // 3+ dependentes: reduzir taxa marginal em 1 p.p.
+      const rate = dependents >= 3 ? Math.max(0, row.rate - 0.01) : row.rate;
+      let ret = grossMonthly * rate - parcela - row.parcelaDep * dependents;
+      ret = Math.max(0, ret);
+      // IRS Jovem: desconto mensal (limite = IRS_JOVEM_LIMIT / 14)
+      if (irsJovemYear) {
+        const jovemRate = TAX.JOVEM_RATES[irsJovemYear] || 0;
+        const jovemMonthlyLimit = TAX.IRS_JOVEM_LIMIT / 14;
+        const exemptIncome = Math.min(grossMonthly, jovemMonthlyLimit);
+        const proportion = exemptIncome / grossMonthly;
+        ret = Math.max(0, ret - ret * proportion * jovemRate);
+      }
+      return { retencao: ret, taxaEfetiva: ret / grossMonthly };
+    }
+  }
+  return { retencao: 0, taxaEfetiva: 0 };
+}
+
 function calcIRSJovemDiscount(irs, grossAnual, jovemYear) {
   if (!jovemYear) return 0;
   const rate = TAX.JOVEM_RATES[jovemYear] || 0;
@@ -88,11 +119,14 @@ function calcDependente(input) {
   const deductions = applyDeductions(irs, dependents, dependentsUnder3, grossAnual, irsJovemYear);
   irs = applyMinimoExistencia(deductions.irs, grossAnual, ssAnualEmpTotal);
 
+  // Retencao na fonte (tabelas mensais)
+  const retencao = calcRetencao(grossMonthly, familySituation, dependents, irsJovemYear);
+
   // Distribuicao mensal
   const months = subsidyMode === 14 ? 14 : 12;
   const grossMonthlyEff = grossAnual / months;
   const ssMonthly = ssAnualEmpTotal / months;
-  const irsMonthly = irs / months;
+  const irsMonthly = retencao.retencao;
   const netMonthlyBase = grossMonthlyEff - ssMonthly - irsMonthly;
 
   // Subsidio alimentacao (11 meses)
@@ -106,20 +140,23 @@ function calcDependente(input) {
   const transportAnnual = transportMonthly * 11;
 
   const totalNetMonthly = netMonthlyBase + mealMonthlyClean + transportMonthly;
-  const netAnual = grossAnual - ssAnualEmpTotal - irs;
+  const retencaoAnual = irsMonthly * months;
+  const netAnual = grossAnual - ssAnualEmpTotal - retencaoAnual;
   const totalNetAnual = netAnual + mealAnnualClean + transportAnnual;
 
   const empCostAnual = grossAnual + ssAnualEntidadeTotal + mealAnnualTotal + transportAnnual;
   const empCostMonthly = empCostAnual / 12;
 
   const rSS = grossAnual > 0 ? ssAnualEmpTotal / grossAnual : 0;
-  const rIRS = grossAnual > 0 ? irs / grossAnual : 0;
+  const rIRS = grossAnual > 0 ? retencaoAnual / grossAnual : 0;
 
   return {
     grossMonthly, grossMonthlyEff, grossAnual,
     ssMonthly, ssAnualEmp: ssAnualEmpTotal, ssAnualEntidade: ssAnualEntidadeTotal,
     deducaoEsp, rc,
-    irsMonthly, irs, jovemDiscount: deductions.jovemDiscount, depDeduction: deductions.depDeduction,
+    irsMonthly, irs: retencaoAnual, irsAnualEfetivo: irs,
+    jovemDiscount: deductions.jovemDiscount, depDeduction: deductions.depDeduction,
+    taxaEfetivaRetencao: retencao.taxaEfetiva,
     netMonthlyBase, totalNetMonthly,
     mealPerDay, mealType,
     mealMonthlyClean, mealMonthlyTotal, mealAnnualClean, mealAnnualTotal,
