@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Boletim de Saúde Infantil — curvas de percentis OMS">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FDF2F8"/>
+      <stop offset="1" stop-color="#FCE7F3"/>
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#F5D0E4" stroke-width="0.5"/>
+    </pattern>
+    <filter id="soft" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg)"/>
+  <rect width="800" height="400" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- axes -->
+  <line x1="80" y1="340" x2="720" y2="340" stroke="#C2185B" stroke-width="1.2" opacity="0.5"/>
+  <line x1="80" y1="60"  x2="80"  y2="340" stroke="#C2185B" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- WHO-like percentile curves P3 · P15 · P50 · P85 · P97 -->
+  <g fill="none" stroke="#C2185B" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft)">
+    <path d="M80 310 C 220 280, 400 245, 720 210" stroke-width="1.4" opacity="0.55"/>
+    <path d="M80 280 C 220 245, 400 205, 720 165" stroke-width="1.6" opacity="0.7"/>
+    <path d="M80 245 C 220 205, 400 160, 720 115" stroke-width="2.4" opacity="1"/>
+    <path d="M80 210 C 220 165, 400 115, 720 70"  stroke-width="1.6" opacity="0.7"/>
+    <path d="M80 180 C 220 130, 400 75,  720 30"  stroke-width="1.4" opacity="0.55"/>
+  </g>
+
+  <!-- percentile labels -->
+  <g font-family="Inter, system-ui, sans-serif" font-size="12" fill="#C2185B" opacity="0.8">
+    <text x="728" y="213">3</text>
+    <text x="728" y="168">15</text>
+    <text x="728" y="118" font-weight="700">50</text>
+    <text x="728" y="73">85</text>
+    <text x="728" y="33">97</text>
+  </g>
+
+  <!-- child's measurement track (blue dots along a realistic path) -->
+  <g>
+    <polyline points="140,310 200,285 270,255 340,220 420,190 510,165 610,140"
+              fill="none" stroke="#1976D2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+    <g fill="#1976D2" stroke="#fff" stroke-width="2">
+      <circle cx="140" cy="310" r="5"/>
+      <circle cx="200" cy="285" r="5"/>
+      <circle cx="270" cy="255" r="5"/>
+      <circle cx="340" cy="220" r="5"/>
+      <circle cx="420" cy="190" r="5"/>
+      <circle cx="510" cy="165" r="5"/>
+      <circle cx="610" cy="140" r="5"/>
+    </g>
+  </g>
+
+  <!-- subtle heart as mark of care -->
+  <g transform="translate(600 310)" opacity="0.85">
+    <path d="M0 14 C -18 2, -18 -14, -6 -14 C 0 -14, 0 -8, 0 -6 C 0 -8, 0 -14, 6 -14 C 18 -14, 18 2, 0 14 Z"
+          fill="#EC4899"/>
+  </g>
+
+  <!-- wordmark -->
+  <g font-family="Inter, system-ui, sans-serif" fill="#831843">
+    <text x="80" y="95" font-size="34" font-weight="700" letter-spacing="-0.5">Boletim de Saúde</text>
+    <text x="80" y="122" font-size="15" font-weight="500" fill="#9D174D" opacity="0.85">Curvas OMS · PNV · OCR · Offline</text>
+  </g>
+</svg>
