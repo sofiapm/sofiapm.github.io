@@ -261,6 +261,24 @@ body {
   color: var(--color-accent);
 }
 
+.project-thumbnail--image {
+  background: var(--color-white);
+  overflow: hidden;
+  padding: 0;
+}
+
+.project-thumbnail--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.project-info .project-link + .project-link {
+  margin-left: var(--spacing-sm);
+}
+
 .badge {
   position: absolute;
   top: var(--spacing-sm);

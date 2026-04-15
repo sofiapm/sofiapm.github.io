@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Boletim de Saúde Infantil — app React Native para acompanhar digitalmente o boletim de saúde oficial português.">
+  <title>Boletim de Saúde Infantil — Sofia Martins</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>S</text></svg>">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      margin-bottom: var(--spacing-md);
+    }
+    .back-link:hover { opacity: 0.8; }
+
+    .project-hero {
+      padding: var(--spacing-xl) 0 var(--spacing-lg);
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .project-hero h1 {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spacing-xs);
+    }
+    .project-hero .tagline {
+      margin-bottom: var(--spacing-sm);
+    }
+    .project-hero .summary {
+      text-align: left;
+      margin: 0 0 var(--spacing-md);
+    }
+    .hero-links {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+    .hero-links .project-link {
+      padding: 0.5rem 1rem;
+      background: var(--color-accent-light);
+      border-radius: 6px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: var(--spacing-md);
+    }
+    .gallery figure {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #000;
+    }
+    .gallery figcaption {
+      padding: 0.75rem var(--spacing-sm);
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--spacing-sm);
+      list-style: none;
+    }
+    .feature-list li {
+      padding: var(--spacing-sm);
+      background: var(--color-white);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+    .feature-list strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 0.15rem;
+    }
+
+    .seed-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .seed-table th, .seed-table td {
+      padding: 0.6rem var(--spacing-sm);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .seed-table th {
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="project-hero">
+    <div class="container">
+      <a href="../../" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Voltar ao portfolio
+      </a>
+      <h1>Boletim de Saúde Infantil</h1>
+      <p class="tagline">App React Native (Expo) · iOS &amp; Android</p>
+      <p class="summary">
+        Versão digital do Boletim de Saúde Infantil e Juvenil oficial português. Regista medições,
+        plota-as contra as curvas de percentis da OMS (P3/P15/P50/P85/P97), segue a cronologia do Programa
+        Nacional de Vacinação e digitaliza boletins em papel via OCR. Dados 100% locais (SQLite), sem login,
+        sem cloud.
+      </p>
+      <div class="tags" style="margin-bottom: var(--spacing-md);">
+        <span class="tag tag-small">React Native</span>
+        <span class="tag tag-small">Expo</span>
+        <span class="tag tag-small">TypeScript</span>
+        <span class="tag tag-small">SQLite</span>
+        <span class="tag tag-small">Drizzle ORM</span>
+        <span class="tag tag-small">React Query</span>
+        <span class="tag tag-small">react-native-svg</span>
+        <span class="tag tag-small">Tesseract.js (OCR)</span>
+        <span class="tag tag-small">Maestro</span>
+      </div>
+      <div class="hero-links">
+        <a href="https://github.com/sofiapm/boletim-saude" target="_blank" rel="noopener noreferrer" class="project-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Código no GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section" aria-labelledby="features-heading">
+      <div class="container">
+        <h2 id="features-heading">Funcionalidades</h2>
+        <ul class="feature-list">
+          <li><strong>Perfis de filhos</strong>Vários filhos, avatar por género, idade calculada automaticamente, tipo sanguíneo.</li>
+          <li><strong>Medições longitudinais</strong>Peso, altura, perímetro cefálico, IMC, tensão arterial — fonte manual, OCR ou médico.</li>
+          <li><strong>Curvas de percentis OMS</strong>Gráficos com as 5 curvas P3/P15/P50/P85/P97 (rapazes e raparigas) desenhadas em SVG, tal como no boletim em papel.</li>
+          <li><strong>Vacinação PNV</strong>Cronologia do Programa Nacional de Vacinação português agrupada por idade (0m, 2m, 4m, 6m, 12m…).</li>
+          <li><strong>OCR de boletim</strong>Digitaliza o boletim em papel e extrai medições e vacinas automaticamente com Tesseract.js.</li>
+          <li><strong>100% offline</strong>SQLite local, sem login, sem backend — privacidade por design.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <h2 id="gallery-heading">Screenshots</h2>
+        <div class="gallery">
+          <figure>
+            <img src="screenshots/01-dashboard.png" alt="Dashboard com 3 crianças" loading="lazy">
+            <figcaption>Dashboard: lista de filhos com avatar por género, idade, data de nascimento e tipo sanguíneo.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/02-detalhe-leonor.png" alt="Detalhe da Leonor" loading="lazy">
+            <figcaption>Perfil do filho com identificação, CTA para digitalizar boletim (OCR) e informação básica.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/03-grafico-peso.png" alt="Gráfico de peso" loading="lazy">
+            <figcaption>Peso vs idade com as 5 curvas de percentis OMS (P3–P97) e os pontos da criança.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/04-grafico-altura.png" alt="Gráfico de altura" loading="lazy">
+            <figcaption>Altura 0–60 meses, mesma estrutura do gráfico de peso. Toggle para perímetro cefálico.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/05-medicoes.png" alt="Histórico de medições" loading="lazy">
+            <figcaption>Transição para o card "Vacinação (PNV)" — fim do gráfico, início da cronologia.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/06-vacinas.png" alt="Timeline de vacinas PNV" loading="lazy">
+            <figcaption>Cronologia do Programa Nacional de Vacinação agrupada por idade, com datas reais.</figcaption>
+          </figure>
+          <figure>
+            <img src="screenshots/07-detalhe-matilde.png" alt="Perfil da Matilde" loading="lazy">
+            <figcaption>Alternância entre filhos: Matilde, 2 anos, A+. Mesmo layout de detalhe.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="demo-heading">
+      <div class="container">
+        <h2 id="demo-heading">Dados da demo</h2>
+        <p style="margin-bottom: var(--spacing-md); color: var(--color-text-secondary);">
+          Três perfis com progressões realistas (entre P15–P85) para mostrar o produto em fases diferentes.
+          A seed é idempotente e só corre quando a env <code>EXPO_PUBLIC_SEED_DEMO=true</code> está activa.
+        </p>
+        <table class="seed-table">
+          <thead>
+            <tr><th>Criança</th><th>Idade</th><th>Medições</th><th>Perfil</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Leonor Mendes</strong></td><td>~4 anos</td><td>14</td><td>Série longa para gráficos · 13 vacinas PNV</td></tr>
+            <tr><td><strong>Matilde Costa</strong></td><td>~2 anos</td><td>9</td><td>12 vacinas em dia</td></tr>
+            <tr><td><strong>Tomás Silva</strong></td><td>~6 meses</td><td>5</td><td>Primeiro semestre PNV</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tech-heading">
+      <div class="container">
+        <h2 id="tech-heading">Decisões técnicas</h2>
+        <ul class="feature-list">
+          <li><strong>Gráficos em SVG puro</strong>Em vez de <code>react-native-chart-kit</code> (que obriga datasets a partilhar o eixo X), usa <code>react-native-svg</code> para desenhar as 5 curvas de percentis em toda a gama etária com os pontos da criança sobrepostos.</li>
+          <li><strong>Drizzle + SQLite</strong>Schema tipado e migrações versionadas; zero setup para o utilizador.</li>
+          <li><strong>Seed inline</strong>A seed corre dentro da app (<code>expo-sqlite</code> tem binding nativo), guardada por flag de env para não contaminar instalações reais.</li>
+          <li><strong>Maestro para demo</strong>App com SQLite + câmara não corre em browser → Playwright não serve. Maestro faz o equivalente mobile (YAML declarativo, screenshots, vídeo).</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">&copy; 2026 Sofia Martins · <a href="../../" style="color: var(--color-accent); text-decoration: none;">portfolio</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
