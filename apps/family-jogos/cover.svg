@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Jogos em Família — 25 cartões de jogos curtos">
+  <defs>
+    <linearGradient id="jfBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F6F4FF"/>
+      <stop offset="0.6" stop-color="#EAF3FC"/>
+      <stop offset="1" stop-color="#E6F6F4"/>
+    </linearGradient>
+    <filter id="jfShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#3c4a6e" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="800" height="400" fill="url(#jfBg)"/>
+
+  <!-- floating decorative shapes -->
+  <circle cx="80" cy="320" r="14" fill="#7B5CF0" opacity="0.18"/>
+  <rect x="730" y="50" width="22" height="22" rx="6" fill="#1FB5A6" opacity="0.22"/>
+  <rect x="40" y="60" width="14" height="14" rx="4" fill="#EC6C9C" opacity="0.25"/>
+  <circle cx="760" cy="340" r="10" fill="#F0973C" opacity="0.22"/>
+
+  <!-- kicker -->
+  <text x="60" y="60" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="2" fill="#9aa7c2">MEXER · PENSAR · BRINCAR</text>
+
+  <!-- title -->
+  <text x="60" y="120" font-family="'Fredoka', 'Inter', sans-serif" font-size="56" font-weight="700" fill="#3a3556">Jogos em Família</text>
+
+  <!-- tagline -->
+  <text x="60" y="158" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#6f7a92">25 jogos curtos para mexer,</text>
+  <text x="60" y="180" font-family="Inter, system-ui, sans-serif" font-size="17" fill="#6f7a92">pensar e brincar em equipa</text>
+
+  <!-- start button mockup -->
+  <g transform="translate(60 230)">
+    <rect width="180" height="46" rx="23" fill="#7B5CF0"/>
+    <text x="90" y="30" font-family="'Fredoka', Inter, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">Começar ▶</text>
+  </g>
+
+  <!-- fan of three cards (hero, with category icons) -->
+  <g transform="translate(600 200)" filter="url(#jfShadow)">
+    <!-- left: green / movimento (run) -->
+    <g transform="rotate(-14) translate(-130 -90)">
+      <rect width="120" height="160" rx="22" fill="#fff" stroke="#4CB86A" stroke-width="3"/>
+      <g transform="translate(60 80)" fill="#4CB86A" opacity="0.7">
+        <circle cx="0" cy="-26" r="9"/>
+        <line x1="-6" y1="-14" x2="-12" y2="6" stroke="#4CB86A" stroke-width="6" stroke-linecap="round"/>
+        <line x1="6" y1="-14" x2="14" y2="-4" stroke="#4CB86A" stroke-width="6" stroke-linecap="round"/>
+        <line x1="-6" y1="6" x2="-14" y2="22" stroke="#4CB86A" stroke-width="6" stroke-linecap="round"/>
+        <line x1="6" y1="6" x2="16" y2="20" stroke="#4CB86A" stroke-width="6" stroke-linecap="round"/>
+      </g>
+    </g>
+    <!-- center: turquoise / memoria (brain shape simplified) -->
+    <g transform="translate(-60 -100)">
+      <rect width="120" height="160" rx="22" fill="#fff" stroke="#1FB5A6" stroke-width="3"/>
+      <g transform="translate(60 80)" fill="#1FB5A6" opacity="0.7">
+        <circle cx="-12" cy="-2" r="22"/>
+        <circle cx="12" cy="-2" r="22"/>
+        <circle cx="0" cy="-18" r="16"/>
+        <circle cx="-14" cy="14" r="14"/>
+        <circle cx="14" cy="14" r="14"/>
+      </g>
+    </g>
+    <!-- right: pink / imaginacao (sparkle) -->
+    <g transform="rotate(14) translate(10 -90)">
+      <rect width="120" height="160" rx="22" fill="#fff" stroke="#EC6C9C" stroke-width="3"/>
+      <g transform="translate(60 80)" fill="#EC6C9C" opacity="0.75">
+        <path d="M 0 -30 L 6 -6 L 30 0 L 6 6 L 0 30 L -6 6 L -30 0 L -6 -6 Z"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- category dots row at bottom -->
+  <g transform="translate(60 340)">
+    <circle cx="0" cy="0" r="10" fill="#4CB86A"/>
+    <circle cx="28" cy="0" r="10" fill="#3E9BE8"/>
+    <circle cx="56" cy="0" r="10" fill="#F0973C"/>
+    <circle cx="84" cy="0" r="10" fill="#8E6FE0"/>
+    <circle cx="112" cy="0" r="10" fill="#1FB5A6"/>
+    <circle cx="140" cy="0" r="10" fill="#EC6C9C"/>
+    <text x="170" y="5" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#97a0b6">6 categorias</text>
+  </g>
+</svg>
