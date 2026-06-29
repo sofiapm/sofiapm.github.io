@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Horários Ericeira ⇄ CGD — autocarros Carris Metropolitana">
+  <defs>
+    <linearGradient id="hecBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef5ff"/>
+      <stop offset="1" stop-color="#f8f8fb"/>
+    </linearGradient>
+    <filter id="hecShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#121b30" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="800" height="400" fill="url(#hecBg)"/>
+
+  <!-- title -->
+  <text x="60" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="800" letter-spacing="-1" fill="#172033">Ericeira ⇄ CGD</text>
+  <text x="60" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="500" fill="#687083">Autocarros para Campo Grande + caminho</text>
+  <text x="60" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="500" fill="#687083">até Av. João XXI · Carris Metropolitana</text>
+
+  <!-- line legend pills (matching the app's colors) -->
+  <g transform="translate(60 170)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="750" font-size="13">
+    <g>
+      <rect width="80" height="32" rx="10" fill="#dff3ff" stroke="#1570a6" stroke-width="0" />
+      <rect width="6" height="32" rx="3" fill="#1570a6"/>
+      <text x="44" y="21" fill="#1570a6" text-anchor="middle">2801</text>
+    </g>
+    <g transform="translate(96 0)">
+      <rect width="80" height="32" rx="10" fill="#fff0b8"/>
+      <rect width="6" height="32" rx="3" fill="#b77900"/>
+      <text x="44" y="21" fill="#b77900" text-anchor="middle">2803</text>
+    </g>
+    <g transform="translate(192 0)">
+      <rect width="80" height="32" rx="10" fill="#e4ffd6"/>
+      <rect width="6" height="32" rx="3" fill="#358018"/>
+      <text x="44" y="21" fill="#358018" text-anchor="middle">2740</text>
+    </g>
+    <g transform="translate(288 0)">
+      <rect width="80" height="32" rx="10" fill="#ffdada"/>
+      <rect width="6" height="32" rx="3" fill="#a33a3a"/>
+      <text x="44" y="21" fill="#a33a3a" text-anchor="middle">2751</text>
+    </g>
+  </g>
+
+  <!-- example schedule card -->
+  <g transform="translate(60 240)" filter="url(#hecShadow)">
+    <rect width="380" height="120" rx="18" fill="#ffffff" stroke="#e7e9f0"/>
+    <rect width="380" height="56" rx="0" fill="#dff3ff"/>
+    <rect width="7" height="56" fill="#1570a6"/>
+    <text x="22" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="900" letter-spacing="-0.5" fill="#172033">2801</text>
+    <text x="22" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#687083">via A21/A8 · Ericeira P2</text>
+    <text x="358" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" fill="#172033" text-anchor="end">07:15</text>
+    <text x="358" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#687083" text-anchor="end">saída</text>
+    <line x1="0" y1="56" x2="380" y2="56" stroke="rgba(0,0,0,0.05)"/>
+    <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" text-anchor="middle">
+      <g transform="translate(47 80)">
+        <text font-size="10" fill="#687083" letter-spacing="0.5">CHEGADA</text>
+        <text y="20" font-size="13" font-weight="800" fill="#172033">07:59</text>
+      </g>
+      <g transform="translate(142 80)">
+        <text font-size="10" fill="#687083" letter-spacing="0.5">CGD EST.</text>
+        <text y="20" font-size="13" font-weight="800" fill="#172033">08:19</text>
+      </g>
+      <g transform="translate(237 80)">
+        <text font-size="10" fill="#687083" letter-spacing="0.5">TEMPO</text>
+        <text y="20" font-size="13" font-weight="800" fill="#172033">44 min</text>
+      </g>
+      <g transform="translate(332 80)">
+        <text font-size="10" fill="#687083" letter-spacing="0.5">PARAGENS</text>
+        <text y="20" font-size="13" font-weight="800" fill="#172033">4</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- bus icon corner -->
+  <g transform="translate(620 280)" opacity="0.85">
+    <circle cx="0" cy="0" r="68" fill="#172033"/>
+    <g fill="#fff" stroke="#fff" stroke-width="0">
+      <rect x="-32" y="-22" width="64" height="36" rx="6"/>
+      <rect x="-28" y="-18" width="20" height="14" rx="2" fill="#1570a6"/>
+      <rect x="-6" y="-18" width="20" height="14" rx="2" fill="#1570a6"/>
+      <rect x="16" y="-18" width="12" height="14" rx="2" fill="#1570a6"/>
+      <circle cx="-18" cy="18" r="6" fill="#172033"/>
+      <circle cx="-18" cy="18" r="3" fill="#fff"/>
+      <circle cx="18" cy="18" r="6" fill="#172033"/>
+      <circle cx="18" cy="18" r="3" fill="#fff"/>
+    </g>
+  </g>
+</svg>
